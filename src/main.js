@@ -2,6 +2,9 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import "bootstrap";
+import "bootstrap/scss/bootstrap.scss";
+import "@/plugins/icon";
 
 Vue.config.productionTip = false;
 
