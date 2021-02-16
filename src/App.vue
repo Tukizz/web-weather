@@ -1,10 +1,31 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive>
+      <router-view :key="$route.fullpath" />
+    </keep-alive>
+    <Footer />
   </div>
 </template>
 
+<script>
+import Footer from "@/components/Footer";
+export default {
+  components: {
+    Footer
+  }
+};
+</script>
+
 <style lang="scss">
+body,
+html {
+  height: 100%;
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 #app {
   padding: 0px 20px;
   width: 100vw;
