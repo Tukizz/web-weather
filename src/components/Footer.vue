@@ -1,5 +1,5 @@
 <template>
-  <footer class="mt-5 mb-4">
+  <footer class="pb-4">
     <ul class="nav justify-content-center">
       <li class="nav-item">
         <router-link
