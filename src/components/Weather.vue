@@ -37,11 +37,60 @@
         </div>
       </div>
     </div>
+    <div class="row mt-4">
+      <div class="card rounded-3 shadow border-0 ">
+        <div class="card-body px-0">
+          <h5 class="card-title">Cuaca Hari Ini di Setiap Jamnya</h5>
+          <div v-swiper:mySwiperQ="options" class="swiper-container">
+            <div class="swiper-wrapper">
+              <ul class="list-group list-group-horizontal swiper-slide">
+                <li
+                  v-for="hour in day.hour"
+                  :key="hour.length"
+                  class="list-group-item border-0"
+                >
+                  <small class="d-flex justify-content-center">{{
+                    formatTime(hour.time)
+                  }}</small>
+                  <img
+                    class="d-flex justify-content-center"
+                    :src="hour.condition.icon"
+                    :alt="hour.condition.text"
+                  />
+                  <small class="d-flex justify-content-center"
+                    >{{ hour.temp_c }}°</small
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
+import { directive } from "vue-awesome-swiper";
+import "swiper/swiper-bundle.min.css";
+
 export default {
+  directives: {
+    swiper: directive
+  },
+  data() {
+    return {
+      options: {
+        slidesPerView: "auto",
+        spaceBetween: 1,
+        freeMode: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true
+        }
+      }
+    };
+  },
   created() {
     this.$store.dispatch("weatherLoad");
   },
@@ -51,13 +100,30 @@ export default {
     },
     weather() {
       return this.$store.getters.getWeather;
+    },
+    day() {
+      return this.$store.getters.getDay[0];
     }
   },
   methods: {
     formatDate() {
       const options = { weekday: "long", day: "numeric", month: "long" };
       return new Date().toLocaleDateString("id", options);
+    },
+    formatTime(time) {
+      const d = new Date(time);
+      return new Intl.DateTimeFormat("id", {
+        hour: "numeric",
+        minute: "numeric"
+      }).format(d);
     }
   }
 };
 </script>
+
+<style scoped>
+.swiper-slide {
+  width: auto;
+  height: auto;
+}
+</style>
