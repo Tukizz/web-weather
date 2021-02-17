@@ -19,11 +19,15 @@ export default {
 <style lang="scss">
 body,
 html {
+  width: 100%;
   height: 100%;
+}
+body {
   background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 #app {
